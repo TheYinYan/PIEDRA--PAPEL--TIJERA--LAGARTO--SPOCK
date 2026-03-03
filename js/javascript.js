@@ -19,7 +19,9 @@ const Jugada = {
     Spock: { emoji: "🖖", gana: ["Tijera", "Piedra"] }
 };
 
-inicializarJuego();
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarJuego();
+});
 
 /**
 * @brief Inicializa el juego configurando los elementos, estados y eventos necesarios.
