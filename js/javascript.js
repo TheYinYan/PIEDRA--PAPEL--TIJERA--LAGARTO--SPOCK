@@ -1,11 +1,17 @@
 "use strict";
 
 const botonesJugada = [...document.querySelectorAll(".boton-eleccion-jugada")];
-let eleccionJ1 = document.querySelector("#J1");
-let eleccionJ2 = document.querySelector("#J2");
+let eleccionJ1 = document.querySelector(".display-jugador");
+let eleccionCPU = document.querySelector(".display-cpu");
 
-console.log(eleccionJ1);
 
+const Jugada = {
+    Piedra: { emoji: "🪨", gana: ["Lagarto", "Tijera"] },
+    Papel: { emoji: "📋", gana: ["Piedra", "Spock"] },
+    Tijera: { emoji: "✂️", gana: ["Papel", "Lagarto"] },
+    Lagarto: { emoji: "🦎", gana: ["Spock", "Papel"] },
+    Spock: { emoji: "🖖", gana: ["Tijera", "Piedra"] }
+};
 
 inicializarJuego();
 
@@ -21,8 +27,8 @@ inicializarJuego();
 function inicializarJuego() {
     botonesJugada.forEach(boton => {
         boton.addEventListener("click", () => {
-            console.log(boton.textContent);
-            jugar(boton.textContent)
+            const parrafo = boton.querySelector('.text');
+            jugar(parrafo.textContent);
         });
     });
 }
@@ -42,7 +48,10 @@ function inicializarJuego() {
 * @return {void} No devuelve ningún valor.
 */
 function jugar(eleccionUsuario) {
-    mostrarEleccion(eleccionJ1,eleccionUsuario,"Jugador")
+    mostrarEleccion(eleccionJ1, eleccionUsuario, "Jugador")
+    const CPU = obtenerEleccionCPU()
+    mostrarEleccion(eleccionCPU,CPU,"CPU")
+    
 }
 
 /**
@@ -53,7 +62,9 @@ function jugar(eleccionUsuario) {
 * @return {string} La elección de la CPU (por ejemplo: "piedra", "papel" o "tijera"...).
 */
 function obtenerEleccionCPU() {
-
+    const opciones = Object.keys(Jugada); // ["Piedra", "Papel", "Tijera", "Lagarto", "Spock"]
+    const opcion = Math.floor(Math.random() * opciones.length);
+    return opciones[opcion];
 }
 
 /**
@@ -69,13 +80,20 @@ function obtenerEleccionCPU() {
 * @return {void} No devuelve ningún valor.
 */
 function mostrarEleccion(display, eleccion, jugador) {
+    display.classList.replace("placeholder", "mostrar-jugada.active");
     switch (jugador) {
         case 'Jugador':
-            display.classList.replace("placeholder", "mostrar-jugada.active");
-            display.textContent = eleccion;
+
+            display.innerHTML = `
+        <div  class="icono-jugada-grande">${Jugada[eleccion].emoji}</div>
+        <div  class="texto-jugada">${eleccion}</div>`;
             break;
         case 'CPU':
 
+            display.innerHTML = `
+        <div  class="icono-jugada-grande">${Jugada[eleccion].emoji}</div>
+        <div  class="texto-jugada">${eleccion}</div>`;
+            break;
             break;
 
     }
