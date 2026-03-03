@@ -31,6 +31,7 @@ inicializarJuego();
 * @return {void} No devuelve ningún valor.
 */
 function inicializarJuego() {
+    inicializarTooltips();
     botonesJugada.forEach(boton => {
         boton.addEventListener("click", () => {
             const parrafo = boton.querySelector('.text');
@@ -105,7 +106,7 @@ function mostrarEleccion(display, eleccion, jugador) {
 * @return {void} No devuelve ningún valor.
 */
 function reiniciarDisplays() {
-    
+
     displayCPU.innerHTML = "?";
     displayCPU.classList.replace("mostrar-jugada.active", "placeholder");
 
@@ -196,9 +197,12 @@ function actualizarContadores() {
 * @return {void} No devuelve ningún valor.
 */
 function inicializarTooltips() {
-    // // Efecto de carga inicial suave
-    // setTimeout(() => {
-    //     const contenedor = document.querySelector('main');
-    //     if (contenedor) contenedor.style.opacity = '1';
-    // }, 100);
+    botonesJugada.forEach(boton => {
+        boton.addEventListener("mouseover", () => {
+            const parrafo = boton.querySelector('.text');
+            const jugada = parrafo.textContent;
+            const opcionesVencidas = Jugada[jugada].gana.join(" y ");
+            boton.title = `${jugada} vence a: ${opcionesVencidas}`;
+        });
+    });
 }
