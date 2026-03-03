@@ -105,10 +105,10 @@ function mostrarEleccion(display, eleccion, jugador) {
 * @return {void} No devuelve ningún valor.
 */
 function reiniciarDisplays() {
-    displayJugador.classList.remove("active", "ganador", "perdedor", "empate");
-    displayCPU.classList.remove("active", "ganador", "perdedor", "empate");
+    
     displayCPU.innerHTML = "?";
     displayCPU.classList.replace("mostrar-jugada.active", "placeholder");
+
     displayJugador.innerHTML = "?";
     displayJugador.classList.replace("mostrar-jugada.active", "placeholder");
 
@@ -151,6 +151,8 @@ function calcularResultadoJugada(usuario, cpu) {
 * @return {void} No devuelve ningún valor.
 */
 function mostrarResultadoJugada(resultado, usuario, cpu) {
+    void mensaje.offsetWidth;
+
     switch (resultado) {
         case "victoria":
             mensaje.innerHTML = `¡Ganaste! ${usuario} vence a ${cpu}`;
@@ -163,7 +165,7 @@ function mostrarResultadoJugada(resultado, usuario, cpu) {
             derrotas++;
             break;
         case "empate":
-            mensaje.innerHTML = "¡Empate!";
+            mensaje.innerHTML = `¡Empate! ${cpu} es igual a ${usuario}`;
             mensaje.classList.add("mensaje-resultado", "empate");
             empate++;
             break;
