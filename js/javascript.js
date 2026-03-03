@@ -7,6 +7,8 @@ const contadorEmpates = document.querySelector("#contador-empates");
 const displayJugador = document.querySelector(".display-jugador");
 const displayCPU = document.querySelector(".display-cpu");
 const mensaje = document.querySelector(".mensaje-resultado");
+const botonReiniciar = document.querySelector("#rest");
+const botonReglas = document.querySelector("#reglas");
 let victoria = 0;
 let derrotas = 0;
 let empate = 0;
@@ -40,6 +42,8 @@ function inicializarJuego() {
             jugar(parrafo.textContent);
         });
     });
+    botonReglas.addEventListener("click", mostrarReglas);
+    botonReiniciar.addEventListener("click", resetearJuego);
 }
 
 /**
@@ -207,4 +211,46 @@ function inicializarTooltips() {
             boton.title = `${jugada} vence a: ${opcionesVencidas}`;
         });
     });
+}
+
+// Parte opcional: funciones para reiniciar el juego y mostrar reglas
+
+/**
+* @brief Muestra las reglas completas del juego en la consola.
+*
+* Esta función imprime un resumen de todas las reglas del juego,
+* indicando qué jugada vence a cuáles otras.
+*
+* @return {void} No devuelve ningún valor.
+*/
+function mostrarReglas() {
+    console.clear();
+    console.log("Reglas del juego:");
+    console.log(`
+Piedra 🪨 aplasta Lagarto 🦎 y Tijera ✂️
+Papel 📋 desautoriza Spock 🖖 y envuelve Piedra 🪨
+Tijera ✂️ decapita Lagarto 🦎 y corta Papel 📋
+Lagarto 🦎 envenena Spock 🖖 y devora Papel 📋
+Spock 🖖 rompe Tijera ✂️ y vaporiza Piedra 🪨`);
+
+}
+
+/**
+* @brief Reinicia el juego a su estado inicial.
+*
+* Esta función realiza las siguientes acciones:
+* - Restablece los contadores de victorias, derrotas y empates a cero.
+* - Reinicia los displays del juego.
+* - Actualiza los contadores en la interfaz.
+* - Muestra un mensaje temporal indicando que el juego ha sido reiniciado.
+* @return {void} No devuelve ningún valor.
+*/
+function resetearJuego() {
+    victoria = 0;
+    derrotas = 0;
+    empate = 0;
+    actualizarContadores();
+    reiniciarDisplays();
+    console.clear();
+    console.log("Juego reiniciado.");
 }
