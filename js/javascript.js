@@ -1,9 +1,15 @@
 "use strict";
 
 const botonesJugada = [...document.querySelectorAll(".boton-eleccion-jugada")];
-let eleccionJ1 = document.querySelector(".display-jugador");
-let eleccionCPU = document.querySelector(".display-cpu");
-
+const contadorVictorias = document.querySelector("#contador-victorias");
+const contadorDerrotas = document.querySelector("#contador-derrotas");
+const contadorEmpates = document.querySelector("#contador-empates");
+const displayJugador = document.querySelector(".display-jugador");
+const displayCPU = document.querySelector(".display-cpu");
+const mensaje = document.querySelector(".mensaje-resultado");
+let victoria = 0;
+let derrotas = 0;
+let empate = 0;
 
 const Jugada = {
     Piedra: { emoji: "🪨", gana: ["Lagarto", "Tijera"] },
@@ -48,10 +54,13 @@ function inicializarJuego() {
 * @return {void} No devuelve ningún valor.
 */
 function jugar(eleccionUsuario) {
-    mostrarEleccion(eleccionJ1, eleccionUsuario, "Jugador")
-    const CPU = obtenerEleccionCPU()
-    mostrarEleccion(eleccionCPU,CPU,"CPU")
-    
+    reiniciarDisplays();
+    const CPU = obtenerEleccionCPU();
+    mostrarEleccion(displayJugador, eleccionUsuario, "Jugador");
+    mostrarEleccion(displayCPU, CPU, "CPU");
+    let resultado = calcularResultadoJugada(eleccionUsuario, CPU);
+    mostrarResultadoJugada(resultado, eleccionUsuario, CPU);
+    actualizarContadores();
 }
 
 /**
@@ -81,22 +90,9 @@ function obtenerEleccionCPU() {
 */
 function mostrarEleccion(display, eleccion, jugador) {
     display.classList.replace("placeholder", "mostrar-jugada.active");
-    switch (jugador) {
-        case 'Jugador':
-
-            display.innerHTML = `
+    display.innerHTML = `
         <div  class="icono-jugada-grande">${Jugada[eleccion].emoji}</div>
         <div  class="texto-jugada">${eleccion}</div>`;
-            break;
-        case 'CPU':
-
-            display.innerHTML = `
-        <div  class="icono-jugada-grande">${Jugada[eleccion].emoji}</div>
-        <div  class="texto-jugada">${eleccion}</div>`;
-            break;
-            break;
-
-    }
 }
 
 /**
@@ -109,7 +105,15 @@ function mostrarEleccion(display, eleccion, jugador) {
 * @return {void} No devuelve ningún valor.
 */
 function reiniciarDisplays() {
+    displayJugador.classList.remove("active", "ganador", "perdedor", "empate");
+    displayCPU.classList.remove("active", "ganador", "perdedor", "empate");
+    displayCPU.innerHTML = "?";
+    displayCPU.classList.replace("mostrar-jugada.active", "placeholder");
+    displayJugador.innerHTML = "?";
+    displayJugador.classList.replace("mostrar-jugada.active", "placeholder");
 
+    mensaje.textContent = "Estadísticas del Juego"
+    mensaje.classList.remove("ganador", "perdedor", "empate");
 }
 
 /**
@@ -124,11 +128,18 @@ function reiniciarDisplays() {
 * @return {string} El resultado de la ronda: "victoria", "derrota" o "empate".
 */
 function calcularResultadoJugada(usuario, cpu) {
-
+    if (usuario === cpu) {
+        return "empate";
+    }
+    else if (Jugada[usuario].gana.includes(cpu)) {
+        return "victoria";
+    } else {
+        return "derrota";
+    }
 }
 
 /**
-* @brief Muestra el resultado de una ronda en la interfaz del juego.
+ * @brief Muestra el resultado de una ronda en la interfaz del juego.
 *
 * Esta función actualiza el mensaje de resultado según si el usuario ganó,
 * perdió o empató, aplica la clase correspondiente para estilos y
@@ -140,7 +151,23 @@ function calcularResultadoJugada(usuario, cpu) {
 * @return {void} No devuelve ningún valor.
 */
 function mostrarResultadoJugada(resultado, usuario, cpu) {
-
+    switch (resultado) {
+        case "victoria":
+            mensaje.innerHTML = `¡Ganaste! ${usuario} vence a ${cpu}`;
+            mensaje.classList.add("mensaje-resultado", "ganador");
+            victoria++;
+            break;
+        case "derrota":
+            mensaje.innerHTML = `¡Perdiste! ${cpu} vence a ${usuario}`;
+            mensaje.classList.add("mensaje-resultado", "perdedor");
+            derrotas++;
+            break;
+        case "empate":
+            mensaje.innerHTML = "¡Empate!";
+            mensaje.classList.add("mensaje-resultado", "empate");
+            empate++;
+            break;
+    }
 }
 
 /**
@@ -152,7 +179,9 @@ function mostrarResultadoJugada(resultado, usuario, cpu) {
 * @return {void} No devuelve ningún valor.
 */
 function actualizarContadores() {
-
+    contadorVictorias.textContent = `${victoria}`;
+    contadorDerrotas.textContent = `${derrotas}`;
+    contadorEmpates.textContent = `${empate}`;
 }
 
 /**
