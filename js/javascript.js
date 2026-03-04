@@ -78,7 +78,7 @@ function jugar(eleccionUsuario) {
 * @return {string} La elección de la CPU (por ejemplo: "piedra", "papel" o "tijera"...).
 */
 function obtenerEleccionCPU() {
-    const opciones = Object.keys(Jugada); // ["Piedra", "Papel", "Tijera", "Lagarto", "Spock"]
+    const opciones = ["Piedra", "Papel", "Tijera", "Lagarto", "Spock"];
     const opcion = Math.floor(Math.random() * opciones.length);
     return opciones[opcion];
 }
@@ -188,9 +188,9 @@ function mostrarResultadoJugada(resultado, usuario, cpu) {
 * @return {void} No devuelve ningún valor.
 */
 function actualizarContadores() {
-    contadorVictorias.textContent = `${victoria}`;
-    contadorDerrotas.textContent = `${derrotas}`;
-    contadorEmpates.textContent = `${empate}`;
+    contadorVictorias.textContent = victoria;
+    contadorDerrotas.textContent = derrotas;
+    contadorEmpates.textContent = empate;
 }
 
 /**
