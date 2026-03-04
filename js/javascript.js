@@ -188,9 +188,9 @@ function mostrarResultadoJugada(resultado, usuario, cpu) {
 * @return {void} No devuelve ningún valor.
 */
 function actualizarContadores() {
-    contadorVictorias.textContent = `${victoria}`;
-    contadorDerrotas.textContent = `${derrotas}`;
-    contadorEmpates.textContent = `${empate}`;
+    contadorVictorias.textContent = victoria;
+    contadorDerrotas.textContent = derrotas;
+    contadorEmpates.textContent = empate;
 }
 
 /**
