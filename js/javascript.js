@@ -254,3 +254,42 @@ function resetearJuego() {
     console.clear();
     console.log("Juego reiniciado.");
 }
+
+/**
+* @brief Maneja las pulsaciones de teclas para jugar o reiniciar el juego.
+*
+* Este listener escucha los eventos de teclado (`keydown`) y realiza las siguientes acciones:
+* - Asocia las teclas numéricas '1' a '5' a las elecciones del juego: "piedra", "papel", "tijera", "lagarto" o "spock".
+* - La tecla 'r' reinicia el juego.
+* - La tecla 's' muestra las reglas del juego.
+*
+* @param {KeyboardEvent} event - El evento de pulsación de tecla.
+*/
+document.addEventListener('keydown', (event) => {
+    switch (event.key.toLocaleLowerCase()) {
+        case '1':
+            jugar('Piedra');
+            break;
+        case '2':
+            jugar('Papel');
+            break;
+        case '3':
+            jugar('Tijera');
+            break;
+        case '4':
+            jugar('Lagarto');
+            break;
+        case '5':
+            jugar('Spock')
+            break;
+        case 'r': case 'R':
+            resetearJuego();
+            break;
+        case 's': case 'S':
+            mostrarReglas();
+            break;
+        case 'l': case 'L':
+            reiniciarDisplays();
+            break;
+    }
+});
