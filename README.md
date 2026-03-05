@@ -1,6 +1,4 @@
-# [LMSGI_SamuelRuizMartin_UD03_ProyectoRA03](https://theyinyan.github.io/PIEDRA--PAPEL--TIJERA--LAGARTO--SPOCK/)
-
-## Proyecto RA 03 - Piedra, Papel, Tijera, Lagarto, Spock
+# [Proyecto RA 03 - Piedra, Papel, Tijera, Lagarto, Spock](https://theyinyan.github.io/PIEDRA--PAPEL--TIJERA--LAGARTO--SPOCK/)
 
 ### Descripción del Proyecto
 Implementación del juego "Piedra, Papel, Tijera, Lagarto, Spock" popularizado por la serie "The Big Bang Theory".  
